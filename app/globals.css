@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f8f7f2;
+  --color-ink: #243c32;
+  --color-muted: #778078;
+  --color-line: #dedfd5;
+  --font-sans: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-serif: Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 30px;
+  }
+  body {
+    @apply m-0 bg-paper font-sans text-ink;
+  }
+  h2 {
+    @apply m-0 text-xl font-bold;
+  }
+  h3 {
+    @apply mt-3.5 mb-2.5 text-[21px] font-bold max-[761px]:text-lg;
+  }
+  a:focus-visible {
+    outline: 3px solid #a26b32;
+    outline-offset: 5px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
