@@ -1,41 +1,69 @@
-# 田芳 · Next.js UI 设计师个人作品集
+# 田芳 · UI 设计师个人作品集
 
-一个无外部字体和图片依赖的 UI 设计师个人介绍页，包含田芳的简介、5 年设计经验、生日、设计理念及待补充的作品集位置。适合测试 GitHub Pages。使用 Next.js App Router，构建时生成静态网页。
+Astro + React TSX + TypeScript + Tailwind CSS v4 静态作品集。包含个人介绍、设计理念与按项目、业务和版本筛选的图片瀑布流。
 
-## 本地运行
+## 本地开发
 
-需要 Node.js 22。
+需要 Node.js 22.12 或更高版本（建议 Node.js 22 最新维护版）。
 
 ```sh
 npm ci
 npm run dev
 ```
 
-打开 http://localhost:3000。修改 `app/page.tsx` 的文字、TSX 中的 Tailwind 类名和 `app/globals.css` 的主题样式即可。
+打开终端显示的本地网址（默认 http://localhost:4321/tianfang-portfolio/）。
 
-## 上传到 GitHub Pages
+## 项目结构
 
-1. 在 GitHub 创建一个公开仓库，名字可以叫 `my-blog`，也可以叫 `你的用户名.github.io`。
-2. 将**本目录内的所有源文件**上传到仓库根目录。不要把整个 `tianfang-portfolio` 文件夹作为外层目录上传；不要上传 `node_modules`、`.next` 或 `out`。
-3. 必须包含隐藏目录 `.github/workflows/deploy.yml`、`.gitignore` 和 `package-lock.json`。使用 Git 推送最容易保留隐藏文件；网页上传时请检查工作流是否存在。
-4. 进入仓库 Settings → Pages → Build and deployment → Source，选择 **GitHub Actions**。这个 Next.js 项目不要选择 Deploy from a branch。
-5. 确认默认分支为 `main`。进入 Actions，选择 Deploy Tian Fang portfolio to GitHub Pages → Run workflow，或者再推送一次代码。
-6. 等待工作流成功，在 Settings → Pages 查看网站链接。
+- `src/components/Portfolio.tsx`：使用 React TSX 编写的页面内容与 Tailwind 类名。
+- `src/pages/index.astro`：页面路由，组合布局和 React 组件。
+- `src/layouts/Layout.astro`：HTML 外壳、页面标题和描述。
+- `src/styles/global.css`：Tailwind 导入、主题颜色与基础样式。
+- `astro.config.mjs`：React 集成、Tailwind Vite 插件和部署路径。
 
-普通仓库地址为 `https://你的用户名.github.io/仓库名/`；用户名站点仓库为 `https://你的用户名.github.io/`。配置会自动识别仓库名，处理静态资源路径。以后推送到 `main` 自动部署。
+目前页面没有交互，React 组件在构建时生成 HTML。以后有 useState 或点击事件的组件，在 Astro 页面使用 `<YourComponent client:load />`，或用 `client:visible` 按需加载。组件内部继续使用普通 React 写法。
 
-如果以后绑定自定义域名，请同时将 `next.config.mjs` 的 `basePath` 改为 `''`，并在 GitHub Pages 设置中配置域名。
-
-## 验证构建
+## 构建与预览
 
 ```sh
 npm run build
+npm run preview
 ```
 
-输出在 `out/`。GitHub Pages 只运行静态网页，不提供 Next.js 服务端接口、登录后台或数据库。该演示公开可访问，不包含访问限制。
+构建会先检查 Astro 与 TypeScript，再输出静态文件到 `dist/`。
+
+## GitHub Pages
+
+将本目录内的源文件放在仓库根目录，保留 `.github/workflows/deploy.yml` 和 `package-lock.json`，不要提交 `node_modules`、`.astro`、`dist`、旧的 `.next` 或 `out`。
+
+Settings → Pages → Source 保持 **GitHub Actions**。推送到 `main` 自动检查、构建并部署 `dist/`。不用另外创建 GitHub 的 Next.js 工作流。
+
+默认网址：https://jiajiaove.github.io/tianfang-portfolio/
+
+工作流会自动读取仓库名来配置子路径。若以后绑定自定义域名，设置构建环境变量 `SITE_URL=https://你的域名` 和 `BASE_PATH=/`，并在 Pages 设置里配置域名。
+
+这次迁移删除了旧的 `app/`、`next.config.mjs`、`next-env.d.ts`、`postcss.config.mjs`；更新远程仓库时也请同步删除这些旧文件。推荐通过 Git 提交全部变更。
 
 ## 内容说明
 
-生日及设计经验由用户提供；设计理念和第一人称简介为初稿，正式发布前可由田芳确认。尚未添加具体项目、客户、软件技能或业绩，作品集提供后再补充。
+生日及设计经验由用户提供；设计理念和第一人称简介为初稿。尚未添加具体项目、客户、软件技能或业绩，作品集提供后再补充。
 
-技术栈：Next.js App Router + TypeScript（严格类型检查）+ Tailwind CSS v4。PostCSS 配置在 `postcss.config.mjs`，Tailwind 主题在 `app/globals.css`。
+## 作品集图片管理
+
+- 项目配置：`src/data/projects.ts`。每个项目独立配置名称、简介、配色、业务顺序、版本顺序和图片清单。
+- 图片清单：`src/data/projects/keygold.json`。包含中文标题、业务、版本、尺寸、英文路径和原始文件对应关系。
+- 图片文件：`public/images/keygold/<业务英文名>/<版本英文名>/`。`thumbs/` 存放列表缩略图，同级 WebP 为完整原图。
+- 原始素材保留在项目目录外的 `../KeyGold-Images/`，不修改原始文件。
+
+当前 KeyGold 导入 122 张图，按首页与导航、商品与支付、订单与状态、账号与钱包、会员与营销、联盟与店铺、客服与帮助、品牌与内容划分业务；保留自适应改版、旧 PC 端、旧移动端版本。
+
+添加其他项目时：
+
+1. 创建 `public/images/<项目英文名>/<业务英文名>/<版本英文名>/`，放入英文命名的图片和缩略图。
+2. 创建 `src/data/projects/<项目英文名>.json`，参照 KeyGold 的清单字段。
+3. 在 `src/data/projects.ts` 导入清单并新增项目对象，使用独立项目 ID 和全局唯一的图片 ID。
+4. 项目标签、业务分类和版本筛选会自动生成，展示组件无需修改。
+
+点击瀑布流卡片可预览完整长图，支持上下滚动、上一张/下一张、左右方向键和 Esc 关闭。列表使用缩略图和延迟加载，预览时加载原图。
+
+本机重新导入 KeyGold 素材可运行 `node scripts/import-keygold.mjs`（需保留上面的素材目录；使用 Astro 安装的 sharp 图片处理依赖）。英文文件名与原文件的对照保存在图片清单的 `source` 字段。
