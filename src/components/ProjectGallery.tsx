@@ -91,7 +91,7 @@ export default function ProjectGallery() {
       <div className="mb-7 flex items-end justify-between gap-4">
         <div>
           <p className="mb-2 text-[10px] tracking-[3px] text-[#7955b0]">
-            SELECTED WORK / 01
+            SELECTED WORK / 02
           </p>
           <h2 className="text-3xl">设计作品集</h2>
         </div>

@@ -1,4 +1,5 @@
 import keygoldImages from "./projects/keygold.json";
+import mangatoonImages from "./projects/mangatoon.json";
 
 export interface PortfolioImage {
   id: string;
@@ -51,5 +52,17 @@ export const projects: PortfolioProject[] = [
       "content",
     ],
     images: keygoldImages,
+  },
+  {
+    id: "mangatoon",
+    name: "MangaToon",
+    subtitle: "READING · SOCIAL · AVATAR EXPERIENCE",
+    description:
+      "漫画与小说社区产品界面设计，覆盖内容阅读、互动社交、角色装扮、福利成长与作者创作流程。按业务与设计范围浏览完整设计稿。",
+    tags: ["MOBILE UI", "CONTENT COMMUNITY", "AVATAR EXPERIENCE"],
+    theme: { background: "#223b65", accent: "#77e6d7" },
+    versions: ["app-experience", "avatar-customization", "creator-studio"],
+    categories: ["home", "reading", "social", "avatar", "rewards", "profile", "creator"],
+    images: mangatoonImages,
   },
 ];
