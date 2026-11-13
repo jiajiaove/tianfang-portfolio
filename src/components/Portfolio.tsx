@@ -125,7 +125,6 @@ export default function Home() {
           <div className="mt-4 flex flex-wrap gap-2 [&>span]:rounded-full [&>span]:border [&>span]:border-[#cbd3c1] [&>span]:px-2.5 [&>span]:py-[5px] [&>span]:text-[11px] [&>span]:text-[#596d55]">
             <span>UI 设计师</span>
             <span>5 年设计经验</span>
-            <span>2000.05.31</span>
           </div>
           <p>
             我是田芳，一名拥有 5 年设计经验的 UI
